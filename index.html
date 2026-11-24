@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f0d">
+<title>FitDs — Treino, Cardio e Dieta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f0d;--s1:#121815;--s2:#19211d;--bd:#26312b;--tx:#eef3f0;--mu:#8a9a92;--ac:#22c55e;--ac2:#16a34a;--rd:#f87171;--r:16px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+input,select,button{font:inherit;color:var(--tx)}
+input,select{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;width:100%;outline:0;transition:.15s}
+input:focus,select:focus{border-color:var(--ac);box-shadow:0 0 0 3px #22c55e22}
+button{cursor:pointer;border:0}
+.btn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#04130a;font-weight:700;border-radius:12px;padding:13px 18px;transition:.15s;width:100%}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.hide{display:none!important}
+/* AUTH */
+#auth{display:grid;grid-template-columns:1.1fr 1fr;min-height:100vh}
+.hero{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:48px;background:linear-gradient(180deg,#0b0f0d33 0%,#0b0f0dee 100%),url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=70") center/cover,linear-gradient(135deg,#14532d,#0b0f0d)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.5px}
+.logo i{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;color:#04130a;font-style:normal;font-size:18px}
+.hero .logo{position:absolute;top:40px;left:48px}
+.hero h2{font-size:42px;line-height:1.1;font-weight:800;letter-spacing:-1.5px;max-width:480px}
+.hero h2 span{color:var(--ac)}
+.hero p{color:#c3cfc8;margin:14px 0 26px;max-width:420px}
+.stats{display:flex;gap:28px}
+.stats b{display:block;font-size:26px;font-weight:800}
+.stats small{color:var(--mu)}
+.formw{display:grid;place-items:center;padding:32px}
+.fbox{width:100%;max-width:400px}
+.fbox .logo{display:none;margin-bottom:24px}
+.fbox h1{font-size:30px;font-weight:800;letter-spacing:-1px}
+.fbox .sub{color:var(--mu);margin:6px 0 22px}
+.seg{display:flex;background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:4px;margin-bottom:20px}
+.seg button{flex:1;background:none;padding:10px;border-radius:9px;font-weight:600;color:var(--mu)}
+.seg button.on{background:var(--s2);color:var(--tx)}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:13px;color:var(--mu);margin-bottom:6px;font-weight:500}
+.err{color:var(--rd);font-size:13px;min-height:20px;margin-bottom:8px}
+.note{color:var(--mu);font-size:12px;margin-top:18px;text-align:center}
+/* APP */
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid var(--bd);background:#0b0f0dcc;backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}
+.usr{display:flex;align-items:center;gap:12px;color:var(--mu);font-size:14px}
+.out{background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:8px 14px;font-size:13px}
+main{max-width:980px;margin:0 auto;padding:20px 20px 60px}
+.banner{border-radius:20px;padding:34px 30px;margin-bottom:20px;background:linear-gradient(90deg,#0b0f0def 25%,#0b0f0d55),url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1400&q=70") center/cover,linear-gradient(135deg,#14532d,#121815);display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.banner h1{font-size:30px;font-weight:800;letter-spacing:-1px}
+.banner p{color:#c3cfc8}
+.banner input{width:auto}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:16px}
+.kpi small{color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.kpi b{display:block;font-size:28px;font-weight:800;letter-spacing:-1px;margin-top:2px}
+.grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{background:var(--s1);border:1px solid var(--bd);border-radius:999px;padding:9px 18px;font-weight:600;color:var(--mu)}
+.tabs button.on{background:var(--ac);border-color:var(--ac);color:#04130a}
+.box{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.box h3{font-size:15px;margin-bottom:10px;display:flex;justify-content:space-between}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.row.w{grid-template-columns:1fr}
+.row.d{grid-template-columns:2fr 1fr 1fr}
+.it{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--bd)}
+.it:first-of-type{border-top:0}
+.it small{display:block;color:var(--mu)}
+.x{background:none;color:var(--rd);font-size:20px;padding:2px 8px}
+.mu{color:var(--mu)}
+.bar{height:10px;border-radius:6px;background:var(--s2);overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),#86efac);border-radius:6px;transition:.4s}
+.bar.o i{background:var(--rd)}
+.chart{display:flex;align-items:flex-end;gap:8px;height:140px;margin-top:10px}
+.chart div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:11px;color:var(--mu)}
+.chart i{width:100%;background:linear-gradient(180deg,var(--ac),var(--ac2));border-radius:6px 6px 0 0;min-height:3px}
+.food{height:110px;border-radius:14px;margin-bottom:14px;background:linear-gradient(90deg,#0b0f0dd0,#0b0f0d33),url("https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=70") center/cover,linear-gradient(135deg,#14532d,#121815);display:flex;align-items:center;padding:0 20px;font-weight:800;font-size:20px}
+@media(max-width:820px){
+#auth{grid-template-columns:1fr}.hero{display:none}.fbox .logo{display:flex}
+.cards{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.banner{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<div id="auth">
+ <div class="hero">
+  <div class="logo"><i>F</i>FitDs</div>
+  <h2>Cada treino conta. <span>Cada refeição também.</span></h2>
+  <p>Registre musculação, cardio e dieta em um só lugar e acompanhe sua evolução dia após dia.</p>
+  <div class="stats"><div><b>3 em 1</b><small>Treino, cardio e dieta</small></div><div><b>6</b><small>Refeições por dia</small></div><div><b>7 dias</b><small>Resumo semanal</small></div></div>
+ </div>
+ <div class="formw"><div class="fbox">
+  <div class="logo"><i>F</i>FitDs</div>
+  <h1 id="ft">Bem-vindo de volta</h1>
+  <p class="sub" id="fs">Entre para continuar seu diário.</p>
+  <div class="seg"><button id="bl" class="on">Entrar</button><button id="br">Criar conta</button></div>
+  <div class="fld hide" id="fn"><label>Nome</label><input id="nm" placeholder="Seu nome" autocomplete="name"></div>
+  <div class="fld"><label>E-mail</label><input id="em" type="email" placeholder="voce@email.com" autocomplete="email"></div>
+  <div class="fld"><label>Senha</label><input id="pw" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password"></div>
+  <div class="err" id="er"></div>
+  <button class="btn" id="go">Entrar</button>
+  <p class="note">Seus dados ficam salvos na nuvem e acompanham você em qualquer aparelho.</p>
+ </div></div>
+</div>
+
+<div id="app" class="hide">
+ <header><div class="logo"><i>F</i>FitDs</div><div class="usr"><span id="un"></span><button class="out" id="so">Sair</button></div></header>
+ <main>
+  <div class="banner"><div><h1 id="gr"></h1><p>Como foi o treino de hoje?</p></div><input type="date" id="dt"></div>
+  <div class="cards">
+   <div class="kpi"><small>Exercícios</small><b id="k1">0</b></div>
+   <div class="kpi"><small>Cardio (min)</small><b id="k2">0</b></div>
+   <div class="kpi"><small>Calorias</small><b id="k3">0</b></div>
+   <div class="kpi"><small>Proteína (g)</small><b id="k4">0</b></div>
+  </div>
+  <div class="grid">
+   <div>
+    <div class="tabs"><button data-t="tr" class="on">Treino</button><button data-t="ca">Cardio</button><button data-t="di">Dieta</button></div>
+    <section id="tr">
+     <div class="box"><div class="row w"><input id="tn" placeholder="Exercício (ex: Supino reto)"></div>
+     <div class="row"><input id="ts" type="number" min="0" placeholder="Séries"><input id="tp" type="number" min="0" placeholder="Reps"><input id="tk" type="number" min="0" step="0.5" placeholder="Carga (kg)"></div>
+     <button class="btn" id="ta">Adicionar exercício</button></div>
+     <div class="box" id="tl"></div>
+    </section>
+    <section id="ca" class="hide">
+     <div class="box"><div class="row w"><select id="ct"><option>Esteira</option><option>Corrida</option><option>Bicicleta</option><option>Caminhada</option><option>Elíptico</option><option>Outro</option></select></div>
+     <div class="row"><input id="cm" type="number" min="0" placeholder="Minutos"><input id="cd" type="number" min="0" step="0.1" placeholder="Km"><input id="cc" type="number" min="0" placeholder="Kcal"></div>
+     <button class="btn" id="cb">Adicionar cardio</button></div>
+     <div class="box" id="cl"></div>
+    </section>
+    <section id="di" class="hide">
+     <div class="food">Sua dieta de hoje</div>
+     <div class="box"><div class="row w"><select id="dm"></select></div>
+     <div class="row d"><input id="dn" placeholder="Alimento"><input id="dk" type="number" min="0" placeholder="Kcal"><input id="dp" type="number" min="0" placeholder="Prot (g)"></div>
+     <button class="btn" id="da">Adicionar alimento</button></div>
+     <div id="dl"></div>
+    </section>
+   </div>
+   <aside>
+    <div class="box"><h3>Meta de calorias <input id="meta" type="number" min="0" style="width:90px;padding:6px 10px"></h3>
+     <div class="bar" id="mb"><i></i></div><div class="mu" id="mx"></div></div>
+    <div class="box"><h3>Últimos 7 dias <span class="mu">kcal</span></h3><div class="chart" id="ch"></div></div>
+   </aside>
+  </div>
+ </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+<script>
+// ===== CONFIGURAÇÃO DO SUPABASE =====
+var CFG={
+  url:"https://ogvlbuttsgofoopeaund.supabase.co",
+  key:"sb_publishable_U0j_kron5hIAGPdrz_UIGQ_g3s2uNH0"
+};
+// ====================================
+var $=function(i){return document.getElementById(i)};
+var M=["Café da manhã","Lanche da manhã","Almoço","Pré-treino","Jantar","Ceia"];
+var sb=null,U=null,S={log:{},meta:2300},mode="l",q=Promise.resolve();
+try{sb=supabase.createClient(CFG.url,CFG.key)}catch(e){console.error(e)}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function num(v){var n=Number(v);return Number.isFinite(n)&&n>=0?n:0}
+function rnd(v){return Math.round(v*10)/10}
+function fmt(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function setMode(m){mode=m;var r=m==="r";
+ $("bl").classList.toggle("on",!r);$("br").classList.toggle("on",r);$("fn").classList.toggle("hide",!r);
+ $("ft").textContent=r?"Crie sua conta":"Bem-vindo de volta";
+ $("fs").textContent=r?"Comece a registrar sua evolução hoje.":"Entre para continuar seu diário.";
+ $("go").textContent=r?"Criar conta":"Entrar";$("er").textContent="";
+ $("pw").autocomplete=r?"new-password":"current-password"}
+$("bl").onclick=function(){setMode("l")};$("br").onclick=function(){setMode("r")};
+function msg(e){var m=e.message||"Erro inesperado.";
+ if(/Invalid login/i.test(m))return"E-mail ou senha incorretos.";
+ if(/already registered/i.test(m))return"Este e-mail já está cadastrado.";
+ if(/not confirmed/i.test(m))return"Confirme seu e-mail antes de entrar.";
+ return m}
+async function submit(){
+ var em=$("em").value.trim().toLowerCase(),pw=$("pw").value,nm=$("nm").value.trim(),er=$("er");er.textContent="";
+ if(!sb||!CFG.url||CFG.url.indexOf("COLE")===0){er.textContent="Configure a URL e a chave do Supabase.";return}
+ if(!/^\S+@\S+\.\S+$/.test(em)){er.textContent="Informe um e-mail válido.";return}
+ if(pw.length<6){er.textContent="A senha precisa ter ao menos 6 caracteres.";return}
+ if(mode==="r"&&!nm){er.textContent="Informe seu nome.";return}
+ $("go").disabled=true;
+ try{
+  if(mode==="r"){
+   var r=await sb.auth.signUp({email:em,password:pw,options:{data:{nome:nm,meta:2300}}});
+   if(r.error)throw r.error;
+   if(!r.data.session){er.style.color="var(--ac)";er.textContent="Conta criada! Confirme o e-mail para entrar.";setMode("l");$("go").disabled=false;return}
+   await boot(r.data.session.user)
+  }else{
+   var l=await sb.auth.signInWithPassword({email:em,password:pw});
+   if(l.error)throw l.error;await boot(l.data.user)}
+ }catch(e){er.style.color="";er.textContent=msg(e)}
+ $("go").disabled=false}
+$("go").onclick=submit;
+["em","pw","nm"].forEach(function(i){$(i).onkeydown=function(e){if(e.key==="Enter")submit()}});
+async function boot(u){
+ U=u;var md=u.user_metadata||{},nm=md.nome||u.email;
+ S={log:{},meta:typeof md.meta==="number"?num(md.meta):2300};
+ $("auth").classList.add("hide");$("app").classList.remove("hide");
+ $("un").textContent=nm;$("meta").value=S.meta;$("dt").value=fmt(new Date());$("pw").value="";
+ var h=new Date().getHours();$("gr").textContent=(h<12?"Bom dia":h<18?"Boa tarde":"Boa noite")+", "+String(nm).split(" ")[0];
+ await load()}
+$("so").onclick=async function(){await sb.auth.signOut();U=null;$("app").classList.add("hide");$("auth").classList.remove("hide");setMode("l")};
+if(sb)sb.auth.getSession().then(function(r){if(r.data&&r.data.session)boot(r.data.session.user)});
+
+async function load(){
+ if(!U||!$("dt").value)return;
+ var b=new Date($("dt").value+"T12:00:00"),a=new Date(b);a.setDate(a.getDate()-6);
+ var r=await sb.from("dias").select("dia,dados").eq("user_id",U.id).gte("dia",fmt(a)).lte("dia",fmt(b));
+ if(r.error){console.error(r.error);alert("Erro ao carregar dados: "+r.error.message);return}
+ if(r.data)r.data.forEach(function(x){
+  var d=x.dados&&typeof x.dados==="object"?x.dados:{};
+  S.log[x.dia]={
+   tr:Array.isArray(d.tr)?d.tr:[],
+   ca:Array.isArray(d.ca)?d.ca:[],
+   di:Array.isArray(d.di)?d.di:[]
+  };
+ });
+ render()}
+function day(k){k=k||$("dt").value;if(!S.log[k])S.log[k]={tr:[],ca:[],di:[]};return S.log[k]}
+function save(){var k=$("dt").value;if(!U||!k)return;var d=JSON.parse(JSON.stringify(day(k)));
+ q=q.then(function(){return sb.from("dias").upsert({user_id:U.id,dia:k,dados:d},{onConflict:"user_id,dia"})})
+  .then(function(r){if(r&&r.error)alert("Erro ao salvar: "+r.error.message)})
+  .catch(function(e){alert("Erro ao salvar: "+(e&&e.message?e.message:e))})}
+M.forEach(function(m,i){var o=document.createElement("option");o.value=i;o.textContent=m;$("dm").appendChild(o)});
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){
+ document.querySelectorAll(".tabs button").forEach(function(x){x.classList.toggle("on",x===b)});
+ ["tr","ca","di"].forEach(function(t){$(t).classList.toggle("hide",t!==b.dataset.t)})}});
+$("dt").onchange=function(){if(!this.value)this.value=fmt(new Date());load()};
+$("meta").onchange=async function(){
+ S.meta=num(this.value);this.value=S.meta;
+ var r=await sb.auth.updateUser({data:{meta:S.meta}});
+ if(r.error)alert("Erro ao salvar meta: "+r.error.message);
+ render()};
+function add(t,o){day()[t].push(o);save();render()}
+function del(t,i){if(!day()[t])return;day()[t].splice(i,1);save();render()}
+function clr(a){a.forEach(function(i){$(i).value=""})}
+$("ta").onclick=function(){var n=$("tn").value.trim();if(!n)return;add("tr",{n:n,s:num($("ts").value),p:num($("tp").value),k:num($("tk").value)});clr(["tn","ts","tp","tk"])};
+$("cb").onclick=function(){var m=num($("cm").value);if(!m)return;add("ca",{t:$("ct").value,m:m,d:num($("cd").value),c:num($("cc").value)});clr(["cm","cd","cc"])};
+$("da").onclick=function(){var n=$("dn").value.trim();if(!n)return;add("di",{m:num($("dm").value),n:n,k:num($("dk").value),p:num($("dp").value)});clr(["dn","dk","dp"])};
+function it(t,i,a,b){return '<div class="it"><div>'+a+'<small>'+b+'</small></div><button class="x" data-t="'+t+'" data-i="'+i+'" aria-label="Remover">×</button></div>'}
+document.addEventListener("click",function(e){var b=e.target.closest(".x");if(b)del(b.dataset.t,+b.dataset.i)});
+function kc(d){return rnd(d.di.reduce(function(a,e){return a+num(e.k)},0))}
+function render(){
+ if(!U)return;var d=day(),kt=kc(d),pt=rnd(d.di.reduce(function(a,e){return a+num(e.p)},0)),cm=rnd(d.ca.reduce(function(a,e){return a+num(e.m)},0)),cc=rnd(d.ca.reduce(function(a,e){return a+num(e.c)},0));
+ $("k1").textContent=d.tr.length;$("k2").textContent=cm;$("k3").textContent=kt;$("k4").textContent=pt;
+ $("tl").innerHTML='<h3>Treino do dia</h3>'+(d.tr.length?d.tr.map(function(e,i){return it("tr",i,esc(String(e.n||"")),num(e.s)+" × "+num(e.p)+" · "+num(e.k)+" kg")}).join(""):'<span class="mu">Nenhum exercício registrado.</span>');
+ $("cl").innerHTML='<h3>Cardio do dia'+(cm?'<span class="mu">'+cm+' min · '+cc+' kcal</span>':'')+'</h3>'+(d.ca.length?d.ca.map(function(e,i){return it("ca",i,esc(String(e.t||"")),num(e.m)+" min · "+num(e.d)+" km · "+num(e.c)+" kcal")}).join(""):'<span class="mu">Nenhum cardio registrado.</span>');
+ var h="";M.forEach(function(m,mi){var l=[];d.di.forEach(function(e,i){if(num(e.m)===mi)l.push([e,i])});
+  var k=rnd(l.reduce(function(a,x){return a+num(x[0].k)},0));
+  h+='<div class="box"><h3>'+m+'<span class="mu">'+k+' kcal</span></h3>'+(l.length?l.map(function(x){return it("di",x[1],esc(String(x[0].n||"")),num(x[0].k)+" kcal · "+num(x[0].p)+" g prot")}).join(""):'<span class="mu">Vazio</span>')+'</div>'});
+ $("dl").innerHTML=h;
+ var pc=S.meta?Math.min(100,kt/S.meta*100):0;$("mb").firstChild.style.width=pc+"%";$("mb").classList.toggle("o",!!S.meta&&kt>S.meta);
+ $("mx").textContent=(S.meta&&kt>S.meta?"Estourou "+rnd(kt-S.meta)+" kcal":"Faltam "+rnd(Math.max(0,S.meta-kt))+" kcal")+" · "+kt+" de "+S.meta;
+ var base=new Date($("dt").value+"T12:00:00"),c=[],mx=Math.max(S.meta||0,1),i;
+ for(i=6;i>=0;i--){var x=new Date(base);x.setDate(x.getDate()-i);var k=fmt(x);
+  var v=S.log[k]?kc(S.log[k]):0;mx=Math.max(mx,v);c.push([v,x.getDate()+"/"+(x.getMonth()+1)])}
+ $("ch").innerHTML=c.map(function(z){return '<div><span>'+z[0]+'</span><i style="height:'+Math.round(z[0]/mx*100)+'%"></i><span>'+z[1]+'</span></div>'}).join("")}
+setMode("l");
+</script>
+</body>
+</html>
